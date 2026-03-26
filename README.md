@@ -124,6 +124,22 @@ python evaluate.py
 
 This runs two example queries (triangle and path) end-to-end and prints the results.
 
+## Useful References
+
+For the core tree decomposition optimizer, there are a few approaches to take:
+1. Variable Elimination (also known as Bucket Elimination): In this approach, we choose an order on the variables in our query that don't appear in the head. In order, we try to project them out one-at-a-time, and this corresponds to a TD where each bag projects away one variable. The tricky part is identifying which relations correspond to which bag and how to arrange the bags into a tree. Section 3.1 of [this paper](https://www.vldb.org/pvldb/vol17/p4655-he.pdf) provides a good description as does Section 2 of [this paper](https://d1wqtxts1xzle7.cloudfront.net/51134088/Heuristic_Methods_for_Hypertree_Decompos20161231-6639-1i3s7zc-libre.pdf?1483214495=&response-content-disposition=inline%3B+filename%3DHeuristic_Methods_for_Hypertree_Decompos.pdf&Expires=1774554232&Signature=NP-9yXEmRY12SrXlucmjhHYel8VHz7QT8svpMRObnXTqYG5HnDdDfHNLb33vJY9XAyn1XbphyFDRM3o2~tCPSOeVnlZ~QmhyO58x5DbVpDpFLEHs9KQ9KJJ5VxhARFdXadWoKtrdHntsnI1i0RxstNzBtZOENT6lnItu6EdIved2wxFET1nly2fZIIFxq2qOnKsj1AhIqZ0V1SpInJ8z4lqII9H-aMNJ6kpd1xSvAHsj9Iq9b9su6XDnxNASWs~-1Pnz~F-TUemYmoYSJ~LMpFXjqMP0mPPcwzXh-YHYqMfK2UF5FYPcNbSGYrxpylbI07riqx2QLJzYzq-Askx9Ew__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA).
+
+2. Candidate Bag -> Candidate Tree Decomposition: In this approach, we start by selecting a set of candidate bags (e.g. bags which have an AGM bound of <c), then we try to construct a TD from that set of bags. If no TD can be constructed, we create a larger candidate set and try again. Here, the algorithm has two phases 1) the candidate set generation and 2) the tree construction algorithm. This paper takes that approach and describes it in Section 3 of [this paper](https://dl.acm.org/doi/pdf/10.1145/3725251).
+
+3. Hypergraph Separators: In this approach, we start by identifying all "balanced separators" of the hypergraph. These are variable sets that split the query into roughly equal sized pieces. We treat each balanced separator as the root node of a TD, then we recurse on the now disconnected sub-queries. Their balanced separators connected as child bags of the first one, and so on. This is described in [this paper](https://dl.acm.org/doi/pdf/10.1145/3638758).
+
+I would recommend variable elimination as a starting place, but all of these algorithms are cool!
+
+For Generic Join, the following resources are available:
+1. The lecture slides from our join algorithms lecture
+2. These two blog posts ([1](https://remy.wang/blog/wcoj.html), [2](https://finnvolkel.com/wcoj-generic-join))
+3. [The original paper ](https://dl.acm.org/doi/pdf/10.1145/2590989.2590991)
+
 ## Grading
 
 I will run an additional test suite to grade your implementation's correctness & optimality. 50% of 
