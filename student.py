@@ -31,7 +31,7 @@ def validate_tree_decomposition(query: ConjunctiveQuery, tree_decomposition: Tre
     """
     raise NotImplementedError("TODO: Implement validate_tree_decomposition")
 
-def compute_fhtw(tree_decomposition: TreeDecomposition):
+def compute_fhtw(query: ConjunctiveQuery, tree_decomposition: TreeDecomposition):
     """Compute the fractional hypertree width of a tree decomposition.
 
     Args:
