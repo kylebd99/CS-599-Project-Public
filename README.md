@@ -91,11 +91,11 @@ Test whether `tree_decomposition` satisfies the necessary properties of a TD.
 
 Compute an **optimal hypertree decomposition** (i.e. a TD with optimal fractional hypertree width).
 
-#### `worst_case_optimal_join(relations) -> list[dict]`
+#### `worst_case_optimal_join(relations) -> Relation`
 
 Implement the **Generic Join** algorithm.
 
-#### `evaluate_tree_decomposition(query, tree_decomposition) -> list[dict]`
+#### `evaluate_tree_decomposition(query, tree_decomposition) -> Relation`
 
 Evaluate the tree decomposition by materializing the bags then running Yannakakis' algorithm.
 

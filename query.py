@@ -20,6 +20,13 @@ class Relation:
     def __repr__(self):
         return self.__str__()
     
+    def __iter__(self):
+        """Allow iteration over the relation's data rows."""
+        return iter(self.data)
+    
+    def __len__(self):
+        return len(self.data)
+
     def add_data(self, rows):
         """Add data rows to the relation.
 
